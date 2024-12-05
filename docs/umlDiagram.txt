@@ -1,0 +1,141 @@
++------------------+
+|      Person      |
++------------------+
+| - name: string   |
+| - ID: string     |
+| - email: string  |
++------------------+
+| + Person(...)    |
+| + ~Person()      |
+| + getName(): string |
+| + getID(): string   |
+| + getEmail(): string |
+| + operator==(...): bool |
+| + operator=(...): Person& |
++------------------+
+         ^
+         |
+         |
++------------------+          +------------------+
+|      Student     |          |     Instructor    |
++------------------+          +------------------+
+| - studentID: string |      | - employeeID: string |
+| - enrollmentDate: string |  | - department: string  |
+| - completedCourses: vector<string> |
+| - group: string    |        | - assignedCourses: vector<string> |
++------------------+          +------------------+
+| + Student(...)    |          | + Instructor(...)  |
+| + displayInfo()   |          | + displayInfo()    |
+| + getRole(): string |        | + getRole(): string |
+| + sendNotification(...) |     | + sendNotification(...) |
+| + enrollInCourse(...) |       | + createAssignment(...) |
+| + submitAssignment(...) |      | + gradeSubmission(...) |
+| + checkProgress()   |         | + monitorStudentProgress() |
+| + viewCertifications() |       | + issueCertification(...) |
+| + receiveNotification(...) |   | + receiveNotification(...) |
+| + operator=(...): Student& |   | + operator=(...): Instructor& |
+| + operator==(...): bool |      | + operator==(...): bool |
++------------------+          +------------------+
+         ^                             ^
+         |                             |
+         |                             |
++------------------+          +------------------+
+|      Admin       |          |      Course      |
++------------------+          +------------------+
+| - adminID: string |        | - courseTitle: string |
+| - privileges: vector<string> | | - courseCode: string |
+| - department: string |       | - description: string |
++------------------+          | - instructor: Instructor* |
+| + Admin(...)      |          | - students: vector<Student*> |
+| + displayInfo()   |          | - modules: vector<Module*> |
+| + getRole(): string |        +------------------+
+| + sendNotification(...) |     | + Course(...)     |
+| + addCourse(...)   |          | + addStudent(...)  |
+| + removeCourse(...) |         | + addModule(...)   |
+| + assignInstructor(...) |     | + displayCourseInfo() |
+| + generateReports() |         | + operator=(...): Course& |
+| + manageCertificates() |       | + operator==(...): bool |
++------------------+          +------------------+
+         |
+         |
+         |
++------------------+
+|     Module       |
++------------------+
+| - moduleTitle: string |
+| - moduleID: string |
+| - contentSections: vector<string> |
++------------------+
+| + Module(...)     |
+| + displayModuleInfo() |
+| + operator=(...): Module& |
+| + operator==(...): bool |
++------------------+
+         |
+         |
+         |
++------------------+
+|   Certificate     |
++------------------+
+| - certificateID: string |
+| - issueDate: string |
+| - courseTitle: string |
+| - recipient: string |
+| - course: Course* |
+| - student: Student* |
++------------------+
+| + Certificate(...) |
+| + displayCertificateInfo() |
+| + operator=(...): Certificate& |
++------------------+
+         |
+         |
+         |
++------------------+
+|   Assignment      |
++------------------+
+| - assignmentID: string |
+| - description: string |
+| - maxScore: int |
+| - dueDate: string |
+| - submissions: vector<Student*> |
++------------------+
+| + Assignment(...) |
+| + submitAssignment(Student* student) |
+| + gradeAssignment(Instructor* instructor, const string& studentID, int score) |
+| + operator=(...): Assignment& |
+| + operator==(...): bool |
+| + friend ostream& operator<<(ostream& os, const Assignment& assignment); |
++------------------+
+         |
+         |
+         |
++------------------+
+|   Notification    |
++------------------+
+| - notificationID: string |
+| - message: string |
+| - dateSent: string |
++------------------+
+| + Notification(...) |
+| + getNotificationID(): string |
+| + getMessage(): string |
+| + getDateSent(): string |
+| + broadcastToStudent(const Student& student) const; |
+| + broadcastToInstructor(const Instructor& instructor) const; |
++------------------+
+         |
+         |
+         |
++------------------+
+|      Group       |
++------------------+
+| - groupID: string |
+| - members: vector<string> |
++------------------+
+| + createGroup(const string& id) |
+| + addMember(const string& member) |
+| + removeMember(const string& member) |
+| + displayGroupInfo() |
++------------------+
+</file>

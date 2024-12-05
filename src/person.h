@@ -30,7 +30,17 @@ public:
     string getEmail() const;
 
     // Operator Overloading
+    // Equality operator
     bool operator == (const Person& other) const; // Equality operator
+
+    // Assignment operator
+    Person& operator=(const Person& other);
+
+    // Stream insertion operator
+    friend ostream& operator<<(ostream& os, const Person& person);
+
+    // Stream extraction operator
+    friend istream& operator>>(istream& is, Person& person);
 };
 
 

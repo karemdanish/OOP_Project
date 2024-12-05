@@ -28,3 +28,25 @@ string Person::getEmail() const {
 bool Person::operator==(const Person& other) const {
     return (name == other.name && ID == other.ID && email == other.email);
 }
+
+// Implement the assignment operator
+Person& Person::operator=(const Person& other) {
+    if (this != &other) {
+        name = other.name;
+        ID = other.ID;
+        email = other.email;
+    }
+    return *this;
+}
+
+// Implement the stream insertion operator
+ostream& operator<<(ostream& os, const Person& person) {
+    os << "Name: " << person.name << ", ID: " << person.ID << ", Email: " << person.email;
+    return os;
+}
+
+// Implement the stream extraction operator
+istream& operator>>(istream& is, Person& person) {
+    is >> person.name >> person.ID >> person.email;
+    return is;
+}
