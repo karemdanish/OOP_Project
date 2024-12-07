@@ -3,35 +3,43 @@
 using namespace std;
 
 // Constructor
-Person::Person(const string& name, const string& ID, const string& email)
+Person::Person(const string &name, const string &ID, const string &email)
     : name(name), ID(ID), email(email) {}
 
-// Destructor
-Person::~Person() {
-    // Virtual destructor for proper clean up of derived objects
-}
+// Copy constructor
+Person::Person(const Person &other)
+    : name(other.name), ID(other.ID), email(other.email) {}
+
+// Virtual Destructor
+Person::~Person() {}
 
 // Getters
-string Person::getName() const {
+string Person::getName() const
+{
     return name;
 }
 
-string Person::getID() const {
+string Person::getID() const
+{
     return ID;
 }
 
-string Person::getEmail() const {
+string Person::getEmail() const
+{
     return email;
 }
 
-// Operator Overloading
-bool Person::operator==(const Person& other) const {
+// Equality operator
+bool Person::operator==(const Person &other) const
+{
     return (name == other.name && ID == other.ID && email == other.email);
 }
 
-// Implement the assignment operator
-Person& Person::operator=(const Person& other) {
-    if (this != &other) {
+// Assignment operator
+Person &Person::operator=(const Person &other)
+{
+    if (this != &other)
+    {
         name = other.name;
         ID = other.ID;
         email = other.email;
@@ -39,14 +47,16 @@ Person& Person::operator=(const Person& other) {
     return *this;
 }
 
-// Implement the stream insertion operator
-ostream& operator<<(ostream& os, const Person& person) {
+// Stream insertion operator
+ostream &operator<<(ostream &os, const Person &person)
+{
     os << "Name: " << person.name << ", ID: " << person.ID << ", Email: " << person.email;
     return os;
 }
 
-// Implement the stream extraction operator
-istream& operator>>(istream& is, Person& person) {
+// Stream extraction operator
+istream &operator>>(istream &is, Person &person)
+{
     is >> person.name >> person.ID >> person.email;
     return is;
 }

@@ -6,6 +6,11 @@ using namespace std;
 Admin::Admin(const string& name, const string& ID, const string& email, const string& adminID, const vector<string>& privileges, const string& department)
     : Person(name, ID, email), adminID(adminID), privileges(privileges), department(department) {}
 
+Admin::~Admin()
+{
+    // Clean up resources if necessary
+}
+
 // Override displayInfo
 void Admin::displayInfo() const {
     // Display admin information
@@ -80,5 +85,3 @@ istream& operator>>(istream& is, Admin& admin) {
     is >> static_cast<Person&>(admin) >> admin.adminID >> admin.department;
     return is;
 }
-
-Admin::~Admin() {}

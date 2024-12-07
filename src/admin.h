@@ -19,6 +19,8 @@ public:
     // Constructor
     Admin(const string& name, const string& ID, const string& email, const string& adminID, const vector<string>& privileges, const string& department);
 
+    ~Admin();
+    
     // Override displayInfo
     // This method displays the admin's information, including their name, ID, email, admin ID, and department.
     void displayInfo() const;
@@ -73,7 +75,7 @@ public:
     //   The input stream after reading the admin details.
     friend istream& operator>>(istream& is, Admin& admin);
 
-    virtual ~Admin() {} // Virtual destructor
+    // virtual ~Admin() {} // Virtual destructor
 };
 
 #endif // ADMIN_H

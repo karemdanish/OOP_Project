@@ -1,52 +1,19 @@
-#ifndef MODULE_H
-#define MODULE_H
+#include "module.h"
 
-#include <string>
-#include <vector>
-#include <iostream>
-using namespace std;
-
-// Module Class
-class Module {
-private:
-    string moduleTitle;      // Title of the module
-    string moduleID;         // Unique identifier for the module
-    vector<string> contentSections; // Sections of content in the module
-
-public:
-    // Constructor
-    Module(const string& title, const string& id, const vector<string>& sections);
-
-    // Methods
-    void displayModuleInfo() const; // Method to display module information
-
-    // Implement the assignment operator
-    Module& operator=(const Module& other);
-
-    // Implement the equality operator
-    bool operator==(const Module& other) const;
-
-    // Implement the stream insertion operator
-    friend ostream& operator<<(ostream& os, const Module& module);
-
-    // Implement the stream extraction operator
-    friend istream& operator>>(istream& is, Module& module);
-};
+int _modules = 0;
 
 // Constructor
-Module::Module(const string& title, const string& id, const vector<string>& sections) 
-    : moduleTitle(title), moduleID(id), contentSections(sections) {
-    // Constructor body (if needed)
-}
+Module::Module(const string &title, const string &id, const vector<string> &sections)
+    : moduleTitle(title), moduleID(id), contentSections(sections) {}
 
+// Display module information
 void Module::displayModuleInfo() const {
-    // Display the module information
-    cout << "Module Title: " << moduleTitle << endl;
-    cout << "Module ID: " << moduleID << endl;
-    cout << "Content Sections: " << endl;
+    cout << "Module Title: " << moduleTitle << ", Module ID: " << moduleID << endl;
+    cout << "Content Sections: ";
     for (const auto& section : contentSections) {
-        cout << "- " << section << endl;
+        cout << section << " ";
     }
+    cout << endl;
 }
 
 // Implement the assignment operator
@@ -54,7 +21,7 @@ Module& Module::operator=(const Module& other) {
     if (this != &other) {
         moduleTitle = other.moduleTitle;
         moduleID = other.moduleID;
-        contentSections = other.contentSections; // Assuming deep copy is needed
+        contentSections = other.contentSections;
     }
     return *this;
 }
@@ -73,7 +40,7 @@ ostream& operator<<(ostream& os, const Module& module) {
 // Implement the stream extraction operator
 istream& operator>>(istream& is, Module& module) {
     is >> module.moduleTitle >> module.moduleID;
+    // Assuming contentSections are read in a specific format
+    // Additional logic may be needed here
     return is;
 }
-
-#endif // MODULE_H

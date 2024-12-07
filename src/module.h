@@ -6,6 +6,8 @@
 #include <iostream>
 using namespace std;
 
+extern int _modules; // Declaration
+
 // Module Class
 class Module
 {

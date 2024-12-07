@@ -2,11 +2,12 @@
 #define PERSON_H
 
 #include <string>
+#include <iostream>
 using namespace std;
 
 // Abstract Base Class
-class Person {
-// Protected attributes so derived classes can access them but cannot be accessed directly outside the class
+class Person
+{
 protected:
     string name;
     string ID;
@@ -14,7 +15,10 @@ protected:
 
 public:
     // Constructor
-    Person(const string& name, const string& ID, const string& email);
+    Person(const string &name, const string &ID, const string &email);
+
+    // Copy constructor
+    Person(const Person &other);
 
     // Virtual Destructor
     virtual ~Person();
@@ -22,7 +26,7 @@ public:
     // Pure virtual functions (to be implemented by derived classes)
     virtual void displayInfo() const = 0;
     virtual string getRole() const = 0;
-    virtual void sendNotification(const string& message) const = 0;
+    virtual void sendNotification(const string &message) const = 0;
 
     // Getters
     string getName() const;
@@ -31,17 +35,16 @@ public:
 
     // Operator Overloading
     // Equality operator
-    bool operator == (const Person& other) const; // Equality operator
+    bool operator==(const Person &other) const;
 
     // Assignment operator
-    Person& operator=(const Person& other);
+    Person &operator=(const Person &other);
 
     // Stream insertion operator
-    friend ostream& operator<<(ostream& os, const Person& person);
+    friend ostream &operator<<(ostream &os, const Person &person);
 
     // Stream extraction operator
-    friend istream& operator>>(istream& is, Person& person);
+    friend istream &operator>>(istream &is, Person &person);
 };
 
-
-#endif //PERSON_H
+#endif // PERSON_H

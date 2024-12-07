@@ -6,8 +6,6 @@
 #include "module.h" 
 using namespace std;
 
-vector<Module *> modules; 
-
 // Forward declarations
 class Instructor; 
 class Student;
