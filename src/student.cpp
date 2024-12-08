@@ -14,6 +14,7 @@ Student::Student(const Student &other)
     : Person(other), // Call base class copy constructor
       studentID(other.studentID),
       enrollmentDate(other.enrollmentDate),
+      enrolledCourses(other.enrolledCourses),
       completedCourses(other.completedCourses)
 {
 }
@@ -25,15 +26,13 @@ Student::~Student()
 }
 
 // Override displayInfo with more detailed implementation
-void Student::displayInfo() const
-{
-    // Use base class output and add student-specific details
-    cout << "Student Information:" << endl;
-    cout << "Name: " << getName() << endl;
-    cout << "ID: " << getID() << endl;
-    cout << "Email: " << getEmail() << endl;
-    cout << "Student ID: " << studentID << endl;
-    cout << "Enrollment Date: " << enrollmentDate << endl;
+void Student::displayInfo() const {
+    std::cout << "Name: " << getName() << ", ID: " << getID() << ", Email: " << getEmail() << std::endl;
+    std::cout << "Enrolled Courses: ";
+    for (const auto& course : enrolledCourses) {
+        std::cout << course << " ";
+    }
+    std::cout << std::endl;
 }
 
 // Override getRole
@@ -52,7 +51,7 @@ void Student::sendNotification(const string &message) const
 // (enrollInCourse, submitAssignment, checkProgress, etc. methods)
 void Student::enrollInCourse(const string &course)
 {
-    completedCourses.push_back(course);
+    enrolledCourses.push_back(course);
     cout << getName() << " has enrolled in " << course << endl;
 }
 
@@ -82,6 +81,38 @@ void Student::receiveNotification(const Notification &notification)
          << notification.getMessage() << endl;
 }
 
+void Student::saveToFile(ofstream &outFile) const
+{
+    outFile << studentID << "," << enrollmentDate << ","; // Save student ID and enrollment date
+    for (const auto &course : completedCourses)
+    {
+        outFile << course << ";"; // Use semicolon to separate courses
+    }
+    outFile << endl; // New line for the next student
+}
+
+void Student::loadFromFile(ifstream &inFile)
+{
+    string line;
+    if (getline(inFile, line))
+    {
+        size_t pos = 0;
+        pos = line.find(',');
+        studentID = line.substr(0, pos);
+        line.erase(0, pos + 1);
+
+        pos = line.find(',');
+        enrollmentDate = line.substr(0, pos);
+        line.erase(0, pos + 1);
+
+        // Load completed courses
+        while ((pos = line.find(';')) != string::npos)
+        {
+            completedCourses.push_back(line.substr(0, pos));
+            line.erase(0, pos + 1);
+        }
+    }
+}
 // Implement the equality operator
 bool Student::operator==(const Student &other) const
 {

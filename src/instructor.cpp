@@ -1,5 +1,6 @@
 #include "instructor.h"
 #include "notifications.h"
+#include <fstream>
 #include <iostream>
 using namespace std;
 
@@ -76,6 +77,25 @@ void Instructor::receiveNotification(const Notification &notification)
          << notification.getMessage() << endl;
 }
 
+void Instructor::saveToFile(ofstream &outFile) const
+{
+    outFile << employeeID << "," << department << endl; // Save instructor details
+}
+
+void Instructor::loadFromFile(ifstream &inFile)
+{
+    string line;
+    if (getline(inFile, line))
+    {
+        size_t pos = 0;
+        pos = line.find(',');
+        employeeID = line.substr(0, pos);
+        line.erase(0, pos + 1);
+
+        department = line; // Remaining part is the department
+    }
+}
+
 // Implement the equality operator
 bool Instructor::operator==(const Instructor &other) const
 {
@@ -99,3 +119,4 @@ istream &operator>>(istream &is, Instructor &instructor)
     is >> static_cast<Person &>(instructor) >> instructor.employeeID >> instructor.department;
     return is;
 }
+

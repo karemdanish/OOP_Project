@@ -4,6 +4,7 @@
 #include "person.h"
 #include <vector>
 #include <string>
+#include <fstream>
 #include "notifications.h"
 
 class Student : public Person
@@ -11,6 +12,7 @@ class Student : public Person
 private:
     string studentID;                // Unique identifier for the student
     string enrollmentDate;           // Date the student enrolled
+    vector<string> enrolledCourses; // List of courses enrolled by the student
     vector<string> completedCourses; // List of courses completed by the student
 
 public:
@@ -45,6 +47,10 @@ public:
     Student &operator-(const string &course);
     vector<string> operator|(const Student &other) const;
     vector<string> operator&(const Student &other) const;
+
+    // File handling methods
+    void saveToFile(ofstream &outFile) const; // Save student data to file
+    void loadFromFile(ifstream &inFile);
 };
 
 #endif // STUDENT_H

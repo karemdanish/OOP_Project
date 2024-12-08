@@ -96,3 +96,73 @@ Course& Course::operator-(Student* student) {
     }
     return *this;
 }
+
+// Method to find a student by ID
+Student *Course::findStudentByID(const string &id)
+{
+    for (Student *student : students)
+    {
+        if (student->getID() == id)
+        {                   // Assuming Student has a method getID()
+            return student; // Return the matching student
+        }
+    }
+    return nullptr; // Return nullptr if no student is found
+}
+
+Instructor *Course::findInstructorByID(const string &id)
+{
+    for (Instructor *instr : instructors)
+    {
+        if (instr->getID() == id)
+        {                 // Assuming Instructor has a method getID()
+            return instr; // Return the matching instructor
+        }
+    }
+    return nullptr; // Return nullptr if no instructor is found
+}
+
+void Course::saveToFile(ofstream &outFile) const {
+    outFile << courseTitle << "," << courseCode << "," << description << ","; // Save course details
+    outFile << instructor->getID() << ","; // Save instructor ID
+    for (const auto &student : students) {
+        outFile << student->getID() << ";"; // Use semicolon to separate student IDs
+    }
+    outFile << endl; // New line for the next course
+}
+
+void Course::loadFromFile(ifstream &inFile) {
+    string line;
+    if (getline(inFile, line)) {
+        size_t pos = 0;
+        pos = line.find(',');
+        courseTitle = line.substr(0, pos);
+        line.erase(0, pos + 1);
+
+        pos = line.find(',');
+        courseCode = line.substr(0, pos);
+        line.erase(0, pos + 1);
+
+        pos = line.find(',');
+        description = line.substr(0, pos);
+        line.erase(0, pos + 1);
+
+        // Load instructor ID
+        string instructorID = line.substr(0, line.find(','));
+        // Assuming you have a method to find instructor by ID
+        instructor = findInstructorByID(instructorID); // Implement this method as needed
+
+        // Load student IDs
+        while ((pos = line.find(';')) != string::npos) {
+            string studentID = line.substr(0, pos);
+            // Assuming you have a method to find student by ID
+            Student* student = findStudentByID(studentID); // Implement this method as needed
+            if (student) {
+                students.push_back(student);
+            }
+            line.erase(0, pos + 1);
+        }
+    }
+}
+
+

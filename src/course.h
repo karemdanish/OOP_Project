@@ -20,15 +20,21 @@ private:
     Instructor* instructor;  // Aggregation with Instructor
     vector<Student*> students; // Association with Student
     vector<Module*> modules;  // Composition with Module
+    vector<Instructor *> instructors; // Instructors list
 
 public:
     // Constructor
     Course(const string& title, const string& code, const string& desc, Instructor* instr);
 
     // Methods
+    Instructor *findInstructorByID(const string &id);
+    Student *findStudentByID(const string &id);
     void addStudent(Student* student); // Add a student to the course
     void addModule(Module* module);     // Add a module to the course
     void displayCourseInfo() const;     // Display course information
+    // File handling methods
+    void saveToFile(ofstream &outFile) const; // Save course data to file
+    void loadFromFile(ifstream &inFile);
 
     // Assignment operator
     Course& operator=(const Course& other); // Assign one course to another

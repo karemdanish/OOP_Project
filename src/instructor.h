@@ -35,6 +35,9 @@ public:
     void monitorStudentProgress() const;
     void issueCertification(const string &studentID);
     void receiveNotification(const Notification &notification);
+    // File handling methods
+    void saveToFile(ofstream &outFile) const; // Save instructor data to file
+    void loadFromFile(ifstream &inFile);
 
     // Operator overloads
     bool operator==(const Instructor &other) const;
